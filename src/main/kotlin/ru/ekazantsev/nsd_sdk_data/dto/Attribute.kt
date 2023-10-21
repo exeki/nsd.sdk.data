@@ -45,15 +45,4 @@ class Attribute {
     @DatabaseField
     var relatedMetaClass: String? = null
 
-    fun getRelatedMetaClass(): MetaClass? {
-        if (this.relatedMetaClass != null) return DbAccess.getInstance().metaClassDao
-            .queryBuilder()
-            .where()
-            .eq("fullCode", this.relatedMetaClass)
-            .and()
-            .eq("installation_id", this.metaClass.installation.id)
-            .query().firstOrNull()
-        return null
-    }
-
 }

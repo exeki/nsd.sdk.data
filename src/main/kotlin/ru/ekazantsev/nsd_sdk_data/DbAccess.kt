@@ -9,23 +9,10 @@ import ru.ekazantsev.nsd_sdk_data.dto.*
 /**
  * Класс, инициализирующий связь с базой и предоставляющий доступ к данным
  */
-class DbAccess private constructor(dbFilePath: String) {
-    companion object {
-        private var instance: DbAccess? = null
+class DbAccess (dbFilePath: String) {
 
-        /**
-         * Получить экземпляр класса
-         * @return имеющийся экземпляр или новый, если ранее еще не был создан
-         */
-        @JvmStatic
-        fun getInstance(): DbAccess {
-            if (instance == null) instance =
-                DbAccess(System.getProperty("user.home") + "\\nsd_sdk\\data\\sdk_meta_store")
-            return instance as DbAccess
-        }
-    }
-
-    val connection: JdbcConnectionSource = JdbcConnectionSource("jdbc:h2:file:$dbFilePath")
+    val connectionString: String
+    val connection: JdbcConnectionSource
     val installationDao: Dao<Installation, Long>
     val metaClassDao: Dao<MetaClass, Long>
     val attributeDao: Dao<Attribute, Long>
@@ -33,15 +20,19 @@ class DbAccess private constructor(dbFilePath: String) {
     val attributeAndGroupLinkDao: Dao<AttributeAndGroupLink, Long>
 
     init {
-        TableUtils.createTableIfNotExists(connection, Installation::class.java)
-        TableUtils.createTableIfNotExists(connection, MetaClass::class.java)
-        TableUtils.createTableIfNotExists(connection, Attribute::class.java)
-        TableUtils.createTableIfNotExists(connection, AttributeGroup::class.java)
-        TableUtils.createTableIfNotExists(connection, AttributeAndGroupLink::class.java)
-        installationDao = DaoManager.createDao(connection, Installation::class.java)
-        metaClassDao = DaoManager.createDao(connection, MetaClass::class.java)
-        attributeDao = DaoManager.createDao(connection, Attribute::class.java)
-        attributeGroupDao = DaoManager.createDao(connection, AttributeGroup::class.java)
-        attributeAndGroupLinkDao = DaoManager.createDao(connection, AttributeAndGroupLink::class.java)
+        val length = dbFilePath.length
+        if(dbFilePath.substring(length - 6, length) != ".mv.db") this.connectionString = dbFilePath
+        else this.connectionString = dbFilePath.substring(0, length - 7)
+        this.connection = JdbcConnectionSource("jdbc:h2:file:${this.connectionString}")
+        TableUtils.createTableIfNotExists(this.connection, Installation::class.java)
+        TableUtils.createTableIfNotExists(this.connection, MetaClass::class.java)
+        TableUtils.createTableIfNotExists(this.connection, Attribute::class.java)
+        TableUtils.createTableIfNotExists(this.connection, AttributeGroup::class.java)
+        TableUtils.createTableIfNotExists(this.connection, AttributeAndGroupLink::class.java)
+        this.installationDao = DaoManager.createDao(this.connection, Installation::class.java)
+        this.metaClassDao = DaoManager.createDao(this.connection, MetaClass::class.java)
+        this.attributeDao = DaoManager.createDao(this.connection, Attribute::class.java)
+        this.attributeGroupDao = DaoManager.createDao(this.connection, AttributeGroup::class.java)
+        this.attributeAndGroupLinkDao = DaoManager.createDao(this.connection, AttributeAndGroupLink::class.java)
     }
 }
