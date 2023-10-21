@@ -19,4 +19,7 @@ class Installation {
 
     @DatabaseField
     var lastUpdateDate: Date = Date()
+
+    @DatabaseField
+    var userId: String = ""
 }
