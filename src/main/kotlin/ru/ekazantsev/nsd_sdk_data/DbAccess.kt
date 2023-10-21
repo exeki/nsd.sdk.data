@@ -22,7 +22,7 @@ class DbAccess (dbFilePath: String) {
     init {
         val length = dbFilePath.length
         if(dbFilePath.substring(length - 6, length) != ".mv.db") this.connectionString = dbFilePath
-        else this.connectionString = dbFilePath.substring(0, length - 7)
+        else this.connectionString = dbFilePath.substring(0, length - 6)
         this.connection = JdbcConnectionSource("jdbc:h2:file:${this.connectionString}")
         TableUtils.createTableIfNotExists(this.connection, Installation::class.java)
         TableUtils.createTableIfNotExists(this.connection, MetaClass::class.java)

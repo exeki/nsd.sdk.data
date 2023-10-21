@@ -6,5 +6,5 @@ import ru.ekazantsev.nsd_sdk_data.DbAccess
 
 class TestUtils {
     static Logger logger = LoggerFactory.getLogger(getClass())
-    static DbAccess db = DbAccess.getInstance()
+    static DbAccess db = new DbAccess('C:\\Users\\ekazantsev\\nsd_sdk\\data\\sdk_meta_store.mv.db')
 }
