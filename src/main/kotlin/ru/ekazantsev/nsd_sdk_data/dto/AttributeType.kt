@@ -34,6 +34,10 @@ enum class AttributeType(private val code: String, private val title: String) {
     LOCALIZED_TEXT("localizedText", "Локализованный текст"),
     COLOR("color", "Цвет"),
     SEC_GROUPS("secGroups", "Группы пользователей"),
+    SYSTEM_OBJECT("systemObject", "Системный объект"),
+    MULTI_CLASS_OBJECTS("multiClassObjects", "Мультиклассовые объекты"),
+    COMMENT_OBJECTS("commentObjects", "Объекты комментариев"),
+    RECORD_TYPE("recordType", "Тип записи"),
     SYSTEM_STATE("systemState", "Системный статус");
 
     companion object {
