@@ -33,7 +33,8 @@ enum class AttributeType(private val code: String, private val title: String) {
     UNKNOWN("unknown", "Неизвестно"),
     LOCALIZED_TEXT("localizedText", "Локализованный текст"),
     COLOR("color", "Цвет"),
-    SEC_GROUPS("secGroups", "Группы пользователей");
+    SEC_GROUPS("secGroups", "Группы пользователей"),
+    SYSTEM_STATE("systemState", "Системный статус");
 
     companion object {
         @JsonCreator
