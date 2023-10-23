@@ -1,0 +1,1 @@
+rootProject.name = "sd_sdk_data"

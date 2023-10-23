@@ -1,6 +1,9 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
-    id("java-library")
+    kotlin("jvm") version "1.9.10"
     id("maven-publish")
+    id("groovy")
 }
 
 group = "ru.ekazantsev"
@@ -33,6 +36,7 @@ repositories {
     mavenLocal()
 }
 
+
 dependencies {
     implementation ("com.j256.ormlite:ormlite-jdbc:6.1")
     implementation ("com.h2database:h2:2.1.214")
@@ -40,6 +44,15 @@ dependencies {
 
     testImplementation ("ch.qos.logback:logback-classic:1.4.11")
     testImplementation ("org.codehaus.groovy:groovy-all:3.0.19")
-    testImplementation ("org.jetbrains.kotlin:kotlin-test")
+    testImplementation(kotlin("test"))
 }
 
+tasks.test {
+    useJUnitPlatform()
+}
+
+tasks.withType<KotlinCompile> {
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+}
