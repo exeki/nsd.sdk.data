@@ -1,10 +1,10 @@
-package ru.ekazantsev.nsd.sdk_data.dto
+package ru.kazantsev.nsd.sdk_data.dto
 
 import com.j256.ormlite.field.DataType
 import com.j256.ormlite.field.DatabaseField
 import com.j256.ormlite.field.ForeignCollectionField
 import com.j256.ormlite.table.DatabaseTable
-import ru.ekazantsev.nsd.sdk_data.DbAccess
+import ru.kazantsev.nsd.sdk_data.DbAccess
 
 @DatabaseTable(tableName = "attributes")
 class Attribute {
