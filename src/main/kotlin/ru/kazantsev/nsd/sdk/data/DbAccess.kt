@@ -1,10 +1,10 @@
-package ru.kazantsev.nsd.sdk_data
+package ru.kazantsev.nsd.sdk.data
 
 import com.j256.ormlite.dao.Dao
 import com.j256.ormlite.dao.DaoManager
 import com.j256.ormlite.jdbc.JdbcConnectionSource
 import com.j256.ormlite.table.TableUtils
-import ru.kazantsev.nsd.sdk_data.dto.*
+import ru.kazantsev.nsd.sdk.data.dto.*
 
 /**
  * Класс, инициализирующий связь с базой и предоставляющий доступ к данным
