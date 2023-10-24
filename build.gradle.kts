@@ -1,25 +1,45 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
     kotlin("jvm") version "1.9.10"
     id("maven-publish")
     id("groovy")
+    id("org.jetbrains.dokka") version "1.9.10"
 }
 
-group = "ru.ekazantsev"
+group = "ru.kazantsev.nsd"
 version = "1.0.0"
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-    withJavadocJar()
-    withSourcesJar()
+tasks {
+    compileKotlin {
+        kotlinOptions.jvmTarget = "11"
+    }
+
+    javadoc {
+        dependsOn(dokkaJavadoc)
+    }
+
+    dokkaJavadoc {
+        outputDirectory.set(buildDir.resolve("docs\\javadoc"))
+    }
+
+    register<Jar>("javadocJar") {
+        from(getByName("javadoc").outputs.files)
+        archiveClassifier.set("javadoc")
+    }
+
+    register<Jar>("sourcesJar") {
+        from(sourceSets.main.get().allSource)
+        archiveClassifier.set("sources")
+    }
 }
 
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            from(components["java"])
+            from(components["kotlin"])
+
+            artifact(tasks.named("javadocJar"))
+            artifact(tasks.named("sourcesJar"))
+
             pom {
                 groupId = project.group.toString()
                 artifactId = project.name
@@ -37,23 +57,14 @@ repositories {
     mavenLocal()
 }
 
-
 dependencies {
-    implementation ("com.j256.ormlite:ormlite-jdbc:6.1")
-    implementation ("com.h2database:h2:2.1.214")
-    implementation ("com.fasterxml.jackson.core:jackson-databind:2.15.2")
+    api("com.j256.ormlite:ormlite-jdbc:6.1")
+    api("com.h2database:h2:2.1.214")
+    api("com.fasterxml.jackson.core:jackson-databind:2.15.2")
 
-    testImplementation ("ch.qos.logback:logback-classic:1.4.11")
-    testImplementation ("org.codehaus.groovy:groovy-all:3.0.19")
+    testImplementation("ch.qos.logback:logback-classic:1.4.11")
+    testImplementation("org.codehaus.groovy:groovy-all:3.0.19")
     testImplementation(kotlin("test"))
 }
 
-tasks.test {
-    useJUnitPlatform()
-}
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = "11"
-    }
-}
