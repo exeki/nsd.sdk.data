@@ -1,8 +1,8 @@
 package tests.data
 
 import com.j256.ormlite.stmt.PreparedQuery
-import ru.ekazantsev.nsd_sdk_data.dto.Attribute
-import ru.ekazantsev.nsd_sdk_data.dto.AttributeType
+import ru.ekazantsev.nsd.sdk_data.dto.Attribute
+import ru.ekazantsev.nsd.sdk_data.dto.AttributeType
 
 import static tests.TestUtils.*
 

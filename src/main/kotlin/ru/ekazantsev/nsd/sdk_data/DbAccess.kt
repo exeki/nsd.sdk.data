@@ -1,9 +1,10 @@
-package ru.ekazantsev.nsd_sdk_data
+package ru.ekazantsev.nsd.sdk_data
 
 import com.j256.ormlite.dao.Dao
 import com.j256.ormlite.dao.DaoManager
 import com.j256.ormlite.jdbc.JdbcConnectionSource
 import com.j256.ormlite.table.TableUtils
+import ru.ekazantsev.nsd.sdk_data.dto.*
 import ru.ekazantsev.nsd_sdk_data.dto.*
 
 /**

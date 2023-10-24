@@ -1,4 +1,4 @@
-package ru.ekazantsev.nsd_sdk_data.dto
+package ru.ekazantsev.nsd.sdk_data.dto
 
 import com.j256.ormlite.field.DataType
 import com.j256.ormlite.field.DatabaseField

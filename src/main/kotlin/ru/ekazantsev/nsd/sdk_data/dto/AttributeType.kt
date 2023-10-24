@@ -1,4 +1,4 @@
-package ru.ekazantsev.nsd_sdk_data.dto
+package ru.ekazantsev.nsd.sdk_data.dto
 
 import com.fasterxml.jackson.annotation.JsonCreator
 
