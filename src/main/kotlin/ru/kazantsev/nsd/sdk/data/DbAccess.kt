@@ -17,7 +17,7 @@ class DbAccess(dbFilePath: String) {
          * Создает экземпляр с путем по умолчанию, сгенерированным с папкой с именем инсталляции
          */
         @JvmStatic
-        fun defaultBuInstallationId(installationId: String): DbAccess {
+        fun createDefaultByInstallationId(installationId: String): DbAccess {
             return DbAccess("C:\\Users\\ekazantsev\\nsd_sdk\\data\\${installationId.lowercase()}\\sdk_meta_store.mv.db")
         }
     }
