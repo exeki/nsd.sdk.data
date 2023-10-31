@@ -8,8 +8,19 @@ import ru.kazantsev.nsd.sdk.data.dto.*
 
 /**
  * Класс, инициализирующий связь с базой и предоставляющий доступ к данным
+ * @param dbFilePath путь до файла базы данных
  */
-class DbAccess (dbFilePath: String) {
+class DbAccess(dbFilePath: String) {
+
+    companion object {
+        /**
+         * Создает экземпляр с путем по умолчанию, сгенерированным с папкой с именем инсталляции
+         */
+        @JvmStatic
+        fun defaultBuInstallationId(installationId: String): DbAccess {
+            return DbAccess("C:\\Users\\ekazantsev\\nsd_sdk\\data\\${installationId.lowercase()}\\sdk_meta_store.mv.db")
+        }
+    }
 
     val connectionString: String
     val connection: JdbcConnectionSource
@@ -21,7 +32,7 @@ class DbAccess (dbFilePath: String) {
 
     init {
         val length = dbFilePath.length
-        if(dbFilePath.substring(length - 6, length) != ".mv.db") this.connectionString = dbFilePath
+        if (dbFilePath.substring(length - 6, length) != ".mv.db") this.connectionString = dbFilePath
         else this.connectionString = dbFilePath.substring(0, length - 6)
         this.connection = JdbcConnectionSource("jdbc:h2:file:${this.connectionString}")
         TableUtils.createTableIfNotExists(this.connection, Installation::class.java)
